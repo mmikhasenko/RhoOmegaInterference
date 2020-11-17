@@ -1,6 +1,7 @@
 module RhoOmegaInterference
 
 using QuadGK
+using LinearAlgebra
 
 export mπ, mπsq
 export mρ, mω
