@@ -14,12 +14,3 @@ function A_X2ππ(s;α)
 end
 # intensity
 I_X2ππ(s; α) = abs2(A_X2ππ(s; α=α))
-
-# # no h^2 term
-# Inoh²_ππ2ππ(s) = abs2(T(s+1e-8im; K=Knoh², ρ2π=ρ2π, ρ3π=ρ3π)[1,1])
-# Inoh²_X2ππ(s; α) = abs2(Anoh²_X2ππ(s; α=α))
-# Inoh²_3π23π(s) = abs2(T(s+1e-8im; K=Knoh², ρ2π=ρ2π, ρ3π=ρ3π)[2,2])
-# function Anoh²_X2ππ(s;α)
-#     Tv = T(s+1e-8im; K=Knoh², ρ2π=ρ2π, ρ3π=ρ3π)
-#     return Tv[1,1] + α*Tv[1,2]/(mρ^2-s)
-# end

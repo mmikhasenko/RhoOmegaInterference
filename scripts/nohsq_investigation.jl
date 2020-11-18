@@ -6,12 +6,17 @@ using Parameters
 # 
 theme(:wong)
 #
-ρ2π(s) = ρ2π_2b(s; R = Nominal.R)
-ρ3π(s) = ρ3π_ρπ(s; R = Nominal.R)
-# 
-I_ππ2ππ(s) = abs2(T(s+1e-8im; K=K, ρ2π=ρ2π, ρ3π=ρ3π)[1,1])
+eofΔe(Δe) = (1e-6*Δe+mω)
+#
+# # no h^2 term
 Inoh²_ππ2ππ(s) = abs2(T(s+1e-8im; K=Knoh², ρ2π=ρ2π, ρ3π=ρ3π)[1,1])
-
+# Inoh²_X2ππ(s; α) = abs2(Anoh²_X2ππ(s; α=α))
+# Inoh²_3π23π(s) = abs2(T(s+1e-8im; K=Knoh², ρ2π=ρ2π, ρ3π=ρ3π)[2,2])
+# function Anoh²_X2ππ(s;α)
+#     Tv = T(s+1e-8im; K=Knoh², ρ2π=ρ2π, ρ3π=ρ3π)
+#     return Tv[1,1] + α*Tv[1,2]/(mρ^2-s)
+# end
+# 
 let
     plot( sp=1, e->e*I_ππ2ππ(e^2), mω-2Γω, mω+2Γω, lab=L"h^2 \neq 0", xlab=L"m_{\pi\pi}")
     plot!(sp=1, e->e*Inoh²_ππ2ππ(e^2), mω-2Γω, mω+2Γω, lab=L"h^2 = 0")
@@ -19,16 +24,48 @@ let
     plot!(sp=1, xlab=L"m_{\pi\pi}\,\,(\mathrm{GeV})",
         title=L"\pi\pi\to \pi\pi\,\,\textrm{cross section}")
     #
-    eofΔe(Δe) = (1e-6*Δe+mω)
     ωxzoom = Γω*Brωππ/2*1e6
     plot!(inset=bbox(0.6,0.4,0.35,0.35))
-    plot!(sp=2, Δe->eofΔe(Δe)*I_ππ2ππ(eofΔe(Δe)^2), -ωxzoom, +ωxzoom, lab="")
+    plot!(sp=2, Δe->eofΔe(Δe)*I_ππ2ππ(eofΔe(Δe)^2), -ωxzoom, +ωxzoom, lab="", frame=:box)
     plot!(sp=2, Δe->eofΔe(Δe)*Inoh²_ππ2ππ(eofΔe(Δe)^2), -ωxzoom, +ωxzoom, lab="")
     vline!(sp=2, [0], lab="", ls=:dash, xlab=L"m_{\pi\pi}-m_\omega\,(\mathrm{keV})", lw=1)
 end
 savefig(joinpath("plots","pipi_amplitude.pdf"))
 
-# 
+
+# let
+#     plot(sp=1, xlab=L"m_{\pi\pi}\,\,(\mathrm{GeV})",
+#         title=L"X\to \pi\pi\,\,\textrm{cross section}", leg=:topleft)
+#     f(s) = I_X2ππ(s; α=0.0)
+#     plot!( e->e*f(e^2)/f(mρ^2-1e-4), 2mπ, 0.8, lab=L"\alpha = 0")
+#     f(s) = I_X2ππ(s; α=0.005)
+#     plot!(e->e*f(e^2)/f(mρ^2-1e-4), 2mπ, 0.8, lab=L"\alpha \neq 0")
+# end
+
+# let
+#     plot(sp=1, xlab=L"m_{\pi\pi}\,\,(\mathrm{GeV})",
+#         title=L"X\to \pi\pi\,\,\textrm{cross section}", leg=:topleft)
+#     f(s) = I_X2ππ(s; α=0.0)
+#     plot!( e->e*f(e^2)/f(mρ^2-1e-4), 2mπ, 0.8, lab=L"\alpha = 0")
+#     f(s) = I_X2ππ(s; α=0.01)
+#     plot!(e->e*f(e^2)/f(mρ^2-1e-4), 2mπ, 0.8, lab=L"\alpha \neq 0")
+#     vline!(sp=1, [mω], lab=L"m_{\omega}", ls=:dash)
+#     #
+#     # eofΔe(Δe) = (1e-6*Δe+mω)
+#     # ωxzoom = Γω*Brωππ/2*1e6*10
+#     # # 
+#     # plot!(inset=bbox(0.6,0.4,0.35,0.35))
+#     # plot!(sp=2, Δe->eofΔe(Δe)*f(eofΔe(Δe)^2)/f(mρ^2-1e-4), -ωxzoom, +ωxzoom, lab="", frame=:box)
+#     # plot!(sp=2, Δe->eofΔe(Δe)*f(eofΔe(Δe)^2)/f(mρ^2-1e-4), -ωxzoom, +ωxzoom, lab="")
+#     # vline!(sp=2, [0], lab="", ls=:dash, xlab=L"m_{\pi\pi}-m_\omega\,(\mathrm{keV})", lw=1)
+#     # #
+# end
+
+
+
+
+@test 1-1==0
+
 # let
 #     plot(e->e*abs2(([gωππ gω] * D(e^2+1e-8im;  K=K))[1] / (mω^2-e^2)), 0.6, 1.0, lab="")
 #     plot!(e->e*abs2(([gωππ gω] * D(e^2+1e-8im; K=Knoh²))[1] / (mω^2-e^2)), 0.6, 1.0, lab="")
