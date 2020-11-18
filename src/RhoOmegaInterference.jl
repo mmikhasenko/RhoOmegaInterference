@@ -16,8 +16,14 @@ include("phasespace.jl")
 export Nominal
 include("settings.jl")
 
+export ρ2π, ρ3π
+export A_X2ππ, I_X2ππ
+export I_ππ2ππ, I_3π23π
+include("intensities.jl")
+
 export k
 export CM_Pwave, BW_Pwave, phiBW_Pwave
+export I_ωBW
 include("chewmandelstam.jl")
 
 export K, Knoh²
