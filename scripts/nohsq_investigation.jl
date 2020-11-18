@@ -33,14 +33,15 @@ end
 savefig(joinpath("plots","pipi_amplitude.pdf"))
 
 
-# let
-#     plot(sp=1, xlab=L"m_{\pi\pi}\,\,(\mathrm{GeV})",
-#         title=L"X\to \pi\pi\,\,\textrm{cross section}", leg=:topleft)
-#     f(s) = I_X2ππ(s; α=0.0)
-#     plot!( e->e*f(e^2)/f(mρ^2-1e-4), 2mπ, 0.8, lab=L"\alpha = 0")
-#     f(s) = I_X2ππ(s; α=0.005)
-#     plot!(e->e*f(e^2)/f(mρ^2-1e-4), 2mπ, 0.8, lab=L"\alpha \neq 0")
-# end
+let
+    plot(sp=1, xlab=L"m_{\pi\pi}\,\,(\mathrm{GeV})",
+        title=L"|X\to \pi\pi\,|^2", leg=:topleft)
+    f(s) = I_X2ππ(s; α=0.0)
+    plot!( e->f(e^2)/f(mρ^2-1e-4), 2mπ, 0.8, lab=L"\alpha = 0")
+    f(s) = I_X2ππ(s; α=0.005)
+    plot!(e->f(e^2)/f(mρ^2-1e-4), 2mπ, 0.8, lab=L"\alpha \neq 0")
+end
+savefig(joinpath("plots","X2pipi_intensity.pdf"))
 
 # let
 #     plot(sp=1, xlab=L"m_{\pi\pi}\,\,(\mathrm{GeV})",
