@@ -2,15 +2,19 @@ module RhoOmegaInterference
 
 using QuadGK
 using LinearAlgebra
+using Parameters
 
 export mπ, mπsq
 export mρ, mω
 export Γρ, Γω, Brωππ
 include("constants.jl")
 
-export ρ, ρρ_2b, ρω_2b
-export gρ, gω, gωππ
+export ρ_2b, ρ2π_2b, ρ3π_2b
+export ρ3π_ρπ
 include("phasespace.jl")
+
+export Nominal
+include("settings.jl")
 
 export k
 export CM_Pwave, BW_Pwave, phiBW_Pwave

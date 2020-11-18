@@ -3,13 +3,18 @@ using RhoOmegaInterference
 using Plots
 using LaTeXStrings
 using Parameters
-# using Interact
+# 
 theme(:wong)
-# pyplot()
 #
+ρ2π(s) = ρ2π_2b(s; R = Nominal.R)
+ρ3π(s) = ρ3π_ρπ(s; R = Nominal.R)
+# 
+I_ππ2ππ(s) = abs2(T(s+1e-8im; K=K, ρ2π=ρ2π, ρ3π=ρ3π)[1,1])
+Inoh²_ππ2ππ(s) = abs2(T(s+1e-8im; K=Knoh², ρ2π=ρ2π, ρ3π=ρ3π)[1,1])
+
 let
-    plot( sp=1, e->e*abs2(T(e^2+1e-8im; K=K)[1,1]), mω-2Γω, mω+2Γω, lab=L"h^2 \neq 0", xlab=L"m_{\pi\pi}")
-    plot!(sp=1, e->e*abs2(T(e^2+1e-8im; K=Knoh²)[1,1]), mω-2Γω, mω+2Γω, lab=L"h^2 = 0")
+    plot( sp=1, e->e*I_ππ2ππ(e^2), mω-2Γω, mω+2Γω, lab=L"h^2 \neq 0", xlab=L"m_{\pi\pi}")
+    plot!(sp=1, e->e*Inoh²_ππ2ππ(e^2), mω-2Γω, mω+2Γω, lab=L"h^2 = 0")
     vline!(sp=1, [mω], lab=L"m_{\omega}", ls=:dash)
     plot!(sp=1, xlab=L"m_{\pi\pi}\,\,(\mathrm{GeV})",
         title=L"\pi\pi\to \pi\pi\,\,\textrm{cross section}")
@@ -17,12 +22,13 @@ let
     eofΔe(Δe) = (1e-6*Δe+mω)
     ωxzoom = Γω*Brωππ/2*1e6
     plot!(inset=bbox(0.6,0.4,0.35,0.35))
-    plot!(sp=2, Δe->eofΔe(Δe)*abs2(T(eofΔe(Δe)^2; K=K)[1,1]), -ωxzoom, +ωxzoom, lab="")
-    plot!(sp=2, Δe->eofΔe(Δe)*abs2(T(eofΔe(Δe)^2; K=Knoh²)[1,1]), -ωxzoom, +ωxzoom, lab="")
-    vline!(sp=2, [0], lab="", ls=:dash, xlab=L"m_{\pi\pi}-m_\omega\,(\mathrm{keV})")
+    plot!(sp=2, Δe->eofΔe(Δe)*I_ππ2ππ(eofΔe(Δe)^2), -ωxzoom, +ωxzoom, lab="")
+    plot!(sp=2, Δe->eofΔe(Δe)*Inoh²_ππ2ππ(eofΔe(Δe)^2), -ωxzoom, +ωxzoom, lab="")
+    vline!(sp=2, [0], lab="", ls=:dash, xlab=L"m_{\pi\pi}-m_\omega\,(\mathrm{keV})", lw=1)
 end
 savefig(joinpath("plots","pipi_amplitude.pdf"))
 
+# 
 # let
 #     plot(e->e*abs2(([gωππ gω] * D(e^2+1e-8im;  K=K))[1] / (mω^2-e^2)), 0.6, 1.0, lab="")
 #     plot!(e->e*abs2(([gωππ gω] * D(e^2+1e-8im; K=Knoh²))[1] / (mω^2-e^2)), 0.6, 1.0, lab="")
