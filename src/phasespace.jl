@@ -10,7 +10,8 @@ p(s; sth) = sqrt(s-sth)/2
 function ρ3π_ρπ(s; R)
     function integrand(σ)
         q = sqrt(λ(s,σ,mπ^2))/(2sqrt(s))
-        # ρ → ππ P-wave break up momentum is neglected in both numerator and energy-dep width
+        # ρ → ππ P-wave break up momentum is neglected
+        #    in both numerator and energy-dep width
         (2q)/sqrt(s) * B1(q^2*R^2) * 2*mρ*Γρ / ((mρ^2-σ)^2+mρ^2*Γρ^2) / (2π)
     end
     return quadgk(integrand, 4mπ^2, (sqrt(s)-mπ)^2)[1]
