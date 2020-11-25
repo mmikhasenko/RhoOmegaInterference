@@ -2,7 +2,7 @@
 function couplings(; ρ2π, ρ3π)
     gρ = sqrt(mρ*Γρ / ρ2π(mρ^2))
     gω = sqrt(mω*Γω / ρ3π(mω^2))
-    gωππ = sqrt(mω*Γω*sqrt(Brωππ) / ρ2π(mω^2))
+    gωππ = sqrt(mω*Γω*Brωππ / ρ2π(mω^2))
     return (gρ=gρ, gω=gω, gωππ=gωππ)
 end
 
