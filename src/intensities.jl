@@ -3,9 +3,7 @@
 ρ3π(s) = ρ3π_ρπ(s; R = Nominal.R)
 # 
 I_ππ2ππ(s) = abs2(T(s+1e-8im; K=K, ρ2π=ρ2π, ρ3π=ρ3π)[1,1])
-# 
 I_3π23π(s) = abs2(T(s+1e-8im; K=K, ρ2π=ρ2π, ρ3π=ρ3π)[2,2])
-I_ωBW(s) = abs2(1/(mω^2-s-1im*mω*Γω))
 
 # production amplitudes
 function A_X2ππ(s;α)
@@ -13,4 +11,4 @@ function A_X2ππ(s;α)
     return Tv[1,1] + α*Tv[1,2]/(mρ^2-s)
 end
 # intensity
-I_X2ππ(s; α) = abs2(A_X2ππ(s; α=α))
+I_X2ππ(s; α) = abs2(A_X2ππ(s; α=α))*p(s; sth=4mπ^2)^2

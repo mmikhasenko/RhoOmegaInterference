@@ -12,12 +12,6 @@ function K(s; ρ2π, ρ3π)
     Kv = g' .* g ./ (mρ^2-s) + h' .* h ./ (mω^2-s)
 end
 
-function Knoh²(s; ρ2π, ρ3π)
-    @unpack gρ, gω, gωππ = couplings(; ρ2π=ρ2π, ρ3π=ρ3π)
-    g = [gρ, 0];
-    Kv = g' .* g ./ (mρ^2-s) + [0 gωππ*gω; gωππ*gω gω^2] ./ (mω^2-s)
-end
-
 function T(s; K=error("K"), ρ2π, ρ3π)
     𝕀 = Matrix{Float64}(I,(2,2))
     Rho = [ρ2π(s) 0; 0 ρ3π(s)]
