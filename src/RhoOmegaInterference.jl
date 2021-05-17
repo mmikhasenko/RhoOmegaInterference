@@ -21,7 +21,12 @@ export A_X2ππ, I_X2ππ
 export I_ππ2ππ, I_3π23π
 include("intensities.jl")
 
-export k
+export k, Φ2
+include("kinematics.jl")
+
+export GS
+export GS_disp
+# 
 export CM_Pwave, BW_Pwave, phiBW_Pwave
 export I_ωBW
 include("chewmandelstam.jl")
