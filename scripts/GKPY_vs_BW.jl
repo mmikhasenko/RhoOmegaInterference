@@ -8,11 +8,11 @@ theme(:wong2, frame=:box, minorticks=true, grid=false, ylims=(0,:auto), lw=1.5)
 list_of_functions = let R0 = 1.45
     [
     L"\mathrm{GKPY\,\,P}\textrm{-}\mathrm{wave}" => e->δ1(e^2)*180/π,
+    latexstring("\\mathrm{GS\\,\\,P}\\textrm{-}\\mathrm{wave}") => e->phiBW_Pwave(e^2; R=R0, endep=:GS)*180/π,
     latexstring("\\mathrm{BW\\,\\,P}\\textrm{-}\\mathrm{wave}\\,\\,(R=$(R0)/\\mathrm{GeV})") => 
         e->phiBW_Pwave(e^2; R=R0, endep=:CM)*180/π,
-    latexstring("\\mathrm{CM\\,\\,P}\\textrm{-}\\mathrm{wave}\\,\\,(R=$(R0)/\\mathrm{GeV})") =>
-        e->phiBW_Pwave(e^2; R=R0, endep=:rho)*180/π,
-    latexstring("\\mathrm{GS}") => e->phiBW_Pwave(e^2; R=R0, endep=:GS)*180/π,
+    # latexstring("\\mathrm{CM\\,\\,P}\\textrm{-}\\mathrm{wave}\\,\\,(R=$(R0)/\\mathrm{GeV})") =>
+    #     e->phiBW_Pwave(e^2; R=R0, endep=:rho)*180/π,
     L"\mathrm{BW\,\,P}\textrm{-}\mathrm{wave\,\,(R=5/GeV)}" => e->phiBW_Pwave(e^2; R=5)*180/π,
     ]
 end;
@@ -31,4 +31,6 @@ let ulim = 0.8
         ylab=L"\delta-\delta_{\mathrm{GKPY}}",
         bottom_margin=-15mm)
 end
+plot!(sp=1, e->δ3(e^2)*180/π, 2mπ, 0.8, lab= L"\mathrm{GKPY\,\,F}\textrm{-}\mathrm{wave}", c=7)
+
 savefig(joinpath("plots","Pwave_phaseshift.pdf"))
